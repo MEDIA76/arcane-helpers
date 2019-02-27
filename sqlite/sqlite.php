@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Sqlite 19.02.1 Arcane Helpers
+ * Sqlite 19.02.2 Arcane Helpers
  * https://github.com/MEDIA76/arcane/
 **/
 
@@ -125,23 +125,27 @@ return new class {
     $statement = $this->construct->statement($statement);
     $statement = $this->database->prepare($statement);
 
-    if(!empty($values)) {
-      $values = $this->construct->array($values);
+    if($statement) {
+      if(!empty($values)) {
+        $values = $this->construct->array($values);
 
-      foreach($values as $parameter => $value) {
-        $statement->bindValue($parameter, $value);
+        foreach($values as $parameter => $value) {
+          $statement->bindValue($parameter, $value);
+        }
       }
     }
 
-    return $statement->execute();
+    return $statement ? $statement->execute() : $statement;
   }
 
   function fetch($result, $mode = SQLITE3_ASSOC) {
-    while($record = $result->fetchArray($mode)) {
-      $records[] = $record;
+    if($result) {
+      while($record = $result->fetchArray($mode)) {
+        $records[] = $record;
+      }
     }
 
-    return $records ?? $record;
+    return $result ? $records ?? $record : $result;
   }
 }
 
