@@ -1,17 +1,17 @@
 <?php
 
 /**
- * If 19.02.1 Arcane Helpers
- * https://github.com/MEDIA76/arcane/
+ * If 19.03.1 Arcane Helpers
+ * https://github.com/MEDIA76/arcane
 **/
 
-return function($conditional, $return = null, $wrap = '%s') {
+return function($conditional, $return = null, $format = "\x20%s") {
   if($conditional) {
-    if($wrap != '%s' && !strpos($wrap, '%s')) {
-      $wrap = $wrap . '="%s"';
+    if(strpos($format, '%s') === false) {
+      $format = "{$format}=\"%s\"";
     }
 
-    return sprintf(" {$wrap}", $return ?? $conditional);
+    return sprintf($format, $return ?? $conditional);
   }
 }
 
