@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Markdown 19.03.1 Arcane Helper
+ * Markdown 19.03.2 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -11,6 +11,8 @@ return function($content) {
   if(substr($content, -2) == 'md') {
     if(is_file($content = path($content, true))) {
       $content = file_get_contents($content);
+    } else {
+      $content = null;
     }
   }
 
