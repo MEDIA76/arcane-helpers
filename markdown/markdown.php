@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Markdown 19.03.1 Arcane Helper
+ * https://github.com/MEDIA76/arcane
+**/
+
 return function($content) {
   $content = trim($content);
 
