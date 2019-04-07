@@ -22,7 +22,7 @@ return function($content) {
     if(preg_match('/(\s+)?([\#+|\+|\-|\*]+)\s+(.+)/', $line, $slice)) {
       if(preg_match('/^(\#){1,6}+$/', $slice[2])) {
         $length = strlen($slice[2]);
-        $pattern = "<h{$length}>%s</h{$length}>";
+        $pattern = "<h$length>%s</h$length>";
       } else if(in_array($slice[2], ['+', '-', '*'])) {
         $pattern = "<li>%s</li>";
 
@@ -30,17 +30,17 @@ return function($content) {
           $list = $slice[2] == '*' ? 'ul' : 'ol';
 
           if($slice[2] == '-') {
-            $list = "{$list} type=\"A\"";
+            $list = "$list type=\"A\"";
           }
 
           if(!isset($primary)) {
-            $pattern = "<{$list}>{$pattern}";
+            $pattern = "<$list>$pattern";
             $primary = $slice[2];
           }
 
           if(!isset($secondary)) {
             if(ltrim($content[$index])[0] != $primary) {
-              $pattern = "<{$list}>{$pattern}";
+              $pattern = "<$list>$pattern";
               $secondary = $slice[2];
             }
           }
@@ -49,7 +49,7 @@ return function($content) {
         if(trim($content[$index + 1][0])) {
           if(ltrim($content[$index + 1])[0] != $primary) {
             $list = $primary == '*' ? 'ul' : 'ol';
-            $pattern = "{$pattern}</{$list}>";
+            $pattern = "$pattern</$list>";
 
             unset($primary);
           }
@@ -57,13 +57,13 @@ return function($content) {
           if(isset($secondary)) {
             if(ltrim($content[$index + 1])[0] != $secondary) {
               $list = $secondary == '*' ? 'ul' : 'ol';
-              $pattern = "{$pattern}</{$list}>";
+              $pattern = "$pattern</$list>";
 
               unset($secondary);
             }
           }
         } else if(!isset($content[$index + 1])) {
-          $pattern = "{$pattern}</{$list}>";
+          $pattern = "$pattern</$list>";
         }
       }
 
