@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Markdown 19.03.2 Arcane Helper
+ * Markdown 19.04.1 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
