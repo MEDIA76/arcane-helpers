@@ -19,7 +19,7 @@ return function($content) {
   $content = array_values(array_filter(explode("\n", $content)));
 
   foreach($content as $index => $line) {
-    if(preg_match('/(\s+)?([\#+|\+|\-|\*]+)\s+(.+)/', $line, $slice)) {
+    if(preg_match('/^(\s+)?([\#+|\+|\-|\*]+)\s+(.+)/', $line, $slice)) {
       if(preg_match('/^(\#){1,6}+$/', $slice[2])) {
         $length = strlen($slice[2]);
         $pattern = "<h$length>%s</h$length>";
