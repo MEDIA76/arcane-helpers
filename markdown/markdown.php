@@ -76,6 +76,17 @@ return function($content) {
       }
     }
 
+    foreach([
+      '\*' => 'strong',
+      '\_' => 'em',
+      '\~' => 'strike',
+      '\`' => 'code'
+    ] as $key => $tag) {
+      if(substr_count($line, stripslashes($key)) > 1) {
+        $line = preg_replace("/$key(.+)$key/", "<$tag>$1</$tag>", $line);
+      }
+    }
+
     $return[$index] = sprintf($pattern, trim($line));
   }
 
