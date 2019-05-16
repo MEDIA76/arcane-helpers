@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Truncate 19.03.2 Arcane Helpers
+ * Truncate 19.03.2 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -11,6 +11,6 @@ return function($string, $limit = 100, $suffix = '...') {
   }
 
   return $string;
-}
+};
 
 ?>

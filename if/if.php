@@ -1,7 +1,7 @@
 <?php
 
 /**
- * If 19.03.1 Arcane Helpers
+ * If 19.03.1 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -13,6 +13,6 @@ return function($conditional, $return = null, $format = "\x20%s") {
 
     return sprintf($format, $return ?? $conditional);
   }
-}
+};
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Languages 17.07.1 Arcane Helpers
+ * Languages 17.07.1 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -44,6 +44,6 @@ return [
   'tr' => 'Türkçe',
   'uk' => 'Українська',
   'cy' => 'Cymraeg'
-]
+];
 
 ?>
