@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OAuth 19.05.1 Arcane Helper
+ * OAuth 19.05.2 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -59,9 +59,17 @@ return new class {
   }
 
   function request($request) {
-    $request['method'] = $request['method'] ?? 'GET';
-    $request['query'] = array_filter($request['query']);
+    $request = !is_array($request) ? [
+      'uri' => $request
+    ] : $request;
+
+    if(isset($this->connected)) {
+      $request['query']['token'] = $this->token;
+    }
+
+    $request['query'] = array_filter($request['query'] ?? []);
     $request['query'] = http_build_query($request['query']);
+    $request['method'] = strtoupper($request['method'] ?? 'GET');
 
     switch($request['method']) {
       case 'GET':
