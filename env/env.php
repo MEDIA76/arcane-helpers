@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Env 19.05.1 Arcane Helper
+ * Env 19.05.2 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -16,24 +16,22 @@ if(file_exists('.gitignore')) {
 if(!file_exists('.env')) {
   touch('.env');
 } else {
-  $env = array_map(function($line) {
+  foreach(file('.env') as $line) {
     if(substr(ltrim($line), 0, 1) != '#') {
-      return str_replace(' ', '', $line);
+      $settings[] = str_replace(' ', '', $line);
     }
-  }, file('.env'));
+  }
 
-  foreach(array_filter($env) as $variable) {
-    putenv($variable);
+  foreach(array_filter($settings) as $setting) {
+    putenv($setting);
   }
 }
 
-return function($key) {
-  if(!is_array($key)) {
-    return getenv($key);
+return function($variable) {
+  if(!is_array($variable)) {
+    return getenv($variable);
   } else {
-    return array_map(function($key) {
-      return getenv($key);
-    }, $key);
+    return array_map('getenv', $variable);
   }
 };
 
