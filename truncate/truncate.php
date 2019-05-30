@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Truncate 19.03.2 Arcane Helper
+ * Truncate 19.05.1 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
 return function($string, $limit = 100, $suffix = '...') {
-  if(mb_strlen($string) > $limit) {
-    $string = mb_substr($string, 0, $limit) . $suffix;
+  if(mb_strlen($string) <= $limit) {
+    return $string;
+  } else {
+    return mb_substr(rtrim($string), 0, $limit) . $suffix;
   }
-
-  return $string;
 };
 
 ?>
