@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Assets 19.06.1 Arcane Helper
+ * Assets 19.06.2 Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -23,7 +23,7 @@ return function($resources, $timestamp = false) {
   foreach($types as $extension => $type) {
     if($index = array_search($type['name'], $resources)) {
       $assets = array_merge([
-        defined('LAYOUT') ? LAYOUT : SET['LAYOUT'] . ".{$extension}"
+        (defined('LAYOUT') ? LAYOUT : SET['LAYOUT']) . ".{$extension}"
       ], preg_filter('/$/', ".{$extension}", PATHS));
 
       if(defined($type['name'])) {
