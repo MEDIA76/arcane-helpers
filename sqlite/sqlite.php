@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQLite 19.02.2 Arcane Helper
+ * SQLite 19.02.2-A Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 

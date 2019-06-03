@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Assets 19.06.2 Arcane Helper
+ * Assets 19.06.2-A Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 

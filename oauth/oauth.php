@@ -1,7 +1,7 @@
 <?php
 
 /**
- * OAuth 19.05.2 Arcane Helper
+ * OAuth 19.05.2-A Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
