@@ -1,6 +1,6 @@
 ## Languages Array
 
-> `$languages[code]`
+> `$languages[$code]`
 
 ``` php
 <select name="">
