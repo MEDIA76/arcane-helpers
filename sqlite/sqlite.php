@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SQLite 19.02.2-A Arcane Helper
+ * SQLite 19.07.1-A Arcane Helper
  * https://github.com/MEDIA76/arcane
 **/
 
@@ -138,14 +138,14 @@ return new class {
     return $statement ? $statement->execute() : $statement;
   }
 
-  function fetch($result, $mode = SQLITE3_ASSOC) {
-    if($result) {
-      while($record = $result->fetchArray($mode)) {
+  function fetch($results, $mode = SQLITE3_ASSOC) {
+    if($results) {
+      while($record = $results->fetchArray($mode)) {
         $records[] = $record;
       }
     }
 
-    return $result ? $records ?? $record : $result;
+    return $results ? $records ?? $record : $results;
   }
 };
 
