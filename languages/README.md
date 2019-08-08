@@ -3,10 +3,10 @@
 > `$languages[$code]`
 
 ``` php
-<select name="">
+<select name="language">
   <?php foreach(LOCALES as $locales) { ?>
     <?php foreach($locales as $locale) { ?>
-      <option value=""><?= $languages[$locale['LANGUAGE']]; ?></option>
+      <option value="<?= $locale['URI']; ?>"><?= $languages[$locale['LANGUAGE']]; ?></option>
     <?php } ?>
   <?php } ?>
 </select>
