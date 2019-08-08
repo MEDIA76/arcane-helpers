@@ -23,4 +23,6 @@
 _Italic_
 ~Strikethrough~
 `code`
+![Alternate Text](Image URL)
+[Link Text](Link URL)
 ```
