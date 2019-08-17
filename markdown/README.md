@@ -26,4 +26,5 @@ _Italic_
 ![Alternate Text](Image URL)
 [Link Text](Link URL)
 > Block Quotation
+    Preformatted Text
 ```
