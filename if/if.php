@@ -2,7 +2,8 @@
 
 /**
  * If 19.06.1 Arcane Helper
- * https://github.com/MEDIA76/arcane
+ * Copyright 2017-2019 Joshua Britt
+ * MIT https://helpers.arcane.dev
 **/
 
 return function($conditional, $return = null, $format = "\x20%s") {
