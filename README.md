@@ -1,5 +1,6 @@
 ## Arcane Helpers
 
+- [Anchor](https://github.com/MEDIA76/arcane-helpers/tree/master/anchor) (Function)
 - [If](https://github.com/MEDIA76/arcane-helpers/tree/master/if) (Function)
 - [Languages](https://github.com/MEDIA76/arcane-helpers/tree/master/languages) (Array)
 - [Markdown](https://github.com/MEDIA76/arcane-helpers/tree/master/markdown) (Function)
