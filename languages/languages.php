@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Languages 17.07.1 Arcane Helper
+ * Languages 19.12.1 Arcane Helper
  * Copyright 2017-2019 Joshua Britt
  * MIT https://helpers.arcane.dev
 **/
@@ -44,6 +44,7 @@ return [
   'th' => 'ภาษาไทย',
   'tr' => 'Türkçe',
   'uk' => 'Українська',
+  'vn' => 'Tiếng Việt',
   'cy' => 'Cymraeg'
 ];
 
