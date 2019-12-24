@@ -5,6 +5,7 @@
 - [Languages](https://github.com/MEDIA76/arcane-helpers/tree/master/languages) (Array)
 - [Markdown](https://github.com/MEDIA76/arcane-helpers/tree/master/markdown) (Function)
 - [OAuth](https://github.com/MEDIA76/arcane-helpers/tree/master/oauth) (Class)
+- [Paginate](https://github.com/MEDIA76/arcane-helpers/tree/master/paginate) (Function)
 - [SQLite](https://github.com/MEDIA76/arcane-helpers/tree/master/sqlite) (Class)
 - [Truncate](https://github.com/MEDIA76/arcane-helpers/tree/master/truncate) (Function)
 
