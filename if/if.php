@@ -2,7 +2,6 @@
 
 /**
  * If 19.06.1 Arcane Helper
- * Copyright 2017-2019 Joshua Britt
  * MIT https://helpers.arcane.dev
 **/
 

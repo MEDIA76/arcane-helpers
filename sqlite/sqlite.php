@@ -2,7 +2,7 @@
 
 /**
  * SQLite 19.07.1-A Arcane Helper
- * https://github.com/MEDIA76/arcane
+ * MIT https://helpers.arcane.dev
 **/
 
 return new class {
