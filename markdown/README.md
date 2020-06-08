@@ -1,9 +1,13 @@
 ## Markdown Function
 
-> `$markdown($content)`
+> `$markdown($content, $replace = [])`
 
 ``` php
 <?= $markdown('## Heading'); ?>
+
+<?= $markdown('# Welcome :name', [
+    ':name' => 'John'
+]); ?>
 
 <?= $markdown('filename.md'); ?>
 ```
