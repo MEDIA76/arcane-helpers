@@ -1,9 +1,11 @@
 ## Anchor Function
 
-> `$anchor($content, $reference, $target = null)`
+> `$anchor($content, $reference, $attributes = [])`
 
 ``` php
 <?= $anchor('About', path('/about/')); ?>
 
-<?= $anchor('GitHub', 'https://github.com', '_blank'); ?>
+<?= $anchor('GitHub', 'https://github.com', [
+  'target' => '_blank'
+]); ?>
 ```
