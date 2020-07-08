@@ -56,7 +56,7 @@ return function($content, $replace = []) {
         $format = "\n%s";
       }
     } else {
-      preg_match('/^[\s]*(\#{1,6}|\+|\-|\*)\s+(.+)$/', $line, $part);
+      preg_match("/^[\s]*(\#{1,6}|\+|\-|\*)\s+(.+)$/", $line, $part);
 
       if(!empty($part)) {
         $partstart = $part[1];
@@ -88,7 +88,7 @@ return function($content, $replace = []) {
           }
 
           if(isset($secondary) || isset($primary)) {
-            if(trim($next[0]) || !$next) {
+            if(!$next || trim($next[0])) {
               if(isset($secondary)) {
                 if($nextstart !== $secondary) {
                   $list = $secondary === '*' ? 'ul' : 'ol';
@@ -120,12 +120,12 @@ return function($content, $replace = []) {
       }
 
       foreach([
-        '*' => '/(\A|\W)\*(?! )([^\*]+)(?<! )\*(?=\W|\Z)/U',
-        '_' => '/(\A|\W)\_(?! )([^\_]+)(?<! )\_(?=\W|\Z)/U',
-        '~' => '/(\A|\W)\~(?! )([^\~]+)(?<! )\~(?=\W|\Z)/U',
-        '`' => '/(\A|\W)\`(?! )([^\`]+)(?<! )\`(?=\W|\Z)/U',
-        '![' => '/(\A|\W)\!\[(.*)\]\((.*)\)(?=\W|\Z)/U',
-        '](' => '/(\A|\W)\[(.*)\]\((.*)\)(?=\W|\Z)/U'
+        '*' => "/(\A|\W)\*(?! )([^\*]+)(?<! )\*(?=\W|\Z)/U",
+        '_' => "/(\A|\W)\_(?! )([^\_]+)(?<! )\_(?=\W|\Z)/U",
+        '~' => "/(\A|\W)\~(?! )([^\~]+)(?<! )\~(?=\W|\Z)/U",
+        '`' => "/(\A|\W)\`(?! )([^\`]+)(?<! )\`(?=\W|\Z)/U",
+        '![' => "/(\A|\W)\!\[(.*)\]\((.*)\)(?=\W|\Z)/U",
+        '](' => "/(\A|\W)\[(.*)\]\((.*)\)(?=\W|\Z)/U"
       ] as $search => $regex) {
         if(strpos($line, $search) !== false) {
           if($search === '`') {
@@ -136,11 +136,11 @@ return function($content, $replace = []) {
             }, $line);
           } else {
             $html = [
-              '*' => '$1<strong>$2</strong>$3',
-              '_' => '$1<em>$2</em>$3',
-              '~' => '$1<strike>$2</strike>$3',
-              '![' => '$1<img src="$3" alt="$2" />$4',
-              '](' => '$1<a href="$3">$2</a>$4'
+              '*' => "$1<strong>$2</strong>$3",
+              '_' => "$1<em>$2</em>$3",
+              '~' => "$1<strike>$2</strike>$3",
+              '![' => "$1<img src=\"$3\" alt=\"$2\" />$4",
+              '](' => "$1<a href=\"$3\">$2</a>$4"
             ];
 
             $line = preg_replace($regex, $html[$search], $line);
@@ -149,7 +149,7 @@ return function($content, $replace = []) {
       }
     }
 
-    $results[] = sprintf($format ?? "%s", $line);
+    $results[] = sprintf($format ?? '%s', $line);
 
     if(isset($code)) {
       if(!ctype_space(substr($next, 0, 4))) {
