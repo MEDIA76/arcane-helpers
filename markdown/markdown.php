@@ -6,29 +6,20 @@
 **/
 
 return function($content, $replace = []) {
-  if(!is_array($content)) {
-    $content = trim($content);
-
-    if(substr($content, -2) === 'md') {
-      if(is_file($path = path($content, true))) {
-        $content = file_get_contents($path);
-      }
-    }
-
-    if(!empty($replace)) {
-      $content = strtr($content, $replace);
-    }
-
-    $content = explode("\n", $content);
-  } else {
-    if(!empty($replace)) {
-      $content = array_map(function($line) use($replace) {
-        return strtr($line, $replace);
-      }, $content);
+  if(is_array($content)) {
+    $content = implode("\n", $content);
+  } else if(substr(rtrim($content), -2) === 'md') {
+    if(is_file($path = path(trim($content), true))) {
+      $content = file_get_contents($path);
     }
   }
 
-  $content = array_values(array_filter($content, 'rtrim'));
+  if(!empty($replace)) {
+    $content = strtr($content, $replace);
+  }
+
+  $content = array_map('rtrim', explode("\n", $content));
+  $content = array_values(array_filter($content));
 
   foreach($content as $index => $line) {
     $next = next($content);
