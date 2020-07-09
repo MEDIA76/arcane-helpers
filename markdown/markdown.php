@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Markdown 20.06.5 Arcane Helper
+ * Markdown 20.07.1 Arcane Helper
  * MIT https://helpers.arcane.dev
 **/
 
@@ -18,7 +18,29 @@ return function($content, $replace = []) {
     $content = strtr($content, $replace);
   }
 
-  $content = array_map('rtrim', explode("\n", $content));
+  $includes = strpos($content, "@\x20");
+  $content = explode("\n", $content);
+
+  if($includes !== false) {
+    $includes = preg_grep("/^\s*(?<!\s{4})@\s+(.+)$/", $content);
+
+    foreach(array_reverse($includes, true) as $index => $include) {
+      if(is_file($path = path(trim($include, "@\x20"), true))) {
+        $include = file_get_contents($path);
+  
+        if(substr($path, -2) === 'md') {
+          $include = array_filter(explode("\n", $include));
+        } else {
+          $spaces = str_repeat("\x20", 4);
+          $include = preg_replace("/^/", $spaces, $include);
+        }
+      }
+
+      array_splice($content, $index, 1, $include);
+    }
+  }
+
+  $content = array_map('rtrim', $content);
   $content = array_values(array_filter($content));
 
   foreach($content as $index => $line) {
