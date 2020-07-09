@@ -32,12 +32,14 @@ return function($content, $replace = []) {
 
   foreach($content as $index => $line) {
     $next = next($content);
-    $linestart = ltrim($line)[0] ?? 0;
-    $nextstart = ltrim($next)[0] ?? 0;
+
+    foreach(['line', 'next'] as $variable) {
+      $start[$variable] = ltrim($$variable)[0] ?? 0;
+    }
 
     unset($format);
 
-    if($linestart === '>') {
+    if($start['line'] === '>') {
       $line = substr($line, strpos($line, '>') + 1);
 
       if(!isset($quote)) {
@@ -56,59 +58,57 @@ return function($content, $replace = []) {
         $format = "\n%s";
       }
     } else {
-      preg_match("/^[\s]*(\#{1,6}|\+|\-|\*)\s+(.+)$/", $line, $part);
+      preg_match("/^\s*(\#{1,6}|\+|\-|\*)\s+(.+)$/", $line, $matches);
 
-      if(!empty($part)) {
-        $partstart = $part[1];
+      if(!empty($matches)) {
+        list($element, $line) = [$matches[1], $matches[2]];
 
-        if($partstart[0] === '#') {
-          $length = strlen($partstart);
+        if($element[0] === '#') {
+          $length = strlen($element);
           $format = "<h{$length}>%s</h{$length}>";
-        } else if(in_array($partstart, ['+', '-', '*'])) {
+        } else if(in_array($element, ['+', '-', '*'])) {
           $format = "<li>%s</li>";
 
-          if(!isset($primary) || !isset($secondary)) {
-            $list = $partstart === '*' ? 'ul' : 'ol';
+          if(!isset($parent) || !isset($child)) {
+            $list = $element === '*' ? 'ul' : 'ol';
 
-            if($partstart === '-') {
+            if($element === '-') {
               $list = "{$list} type=\"A\"";
             }
 
-            if(!isset($primary)) {
+            if(!isset($parent)) {
               $format = "<{$list}>{$format}";
-              $primary = $partstart;
+              $parent = $element;
             }
 
-            if(!isset($secondary)) {
-              if($linestart !== $primary) {
+            if(!isset($child)) {
+              if($start['line'] !== $parent) {
                 $format = "<{$list}>{$format}";
-                $secondary = $partstart;
+                $child = $element;
               }
             }
           }
 
-          if(isset($secondary) || isset($primary)) {
+          if(isset($child) || isset($parent)) {
             if(!$next || trim($next[0])) {
-              if(isset($secondary)) {
-                if($nextstart !== $secondary) {
-                  $list = $secondary === '*' ? 'ul' : 'ol';
+              if(isset($child)) {
+                if($start['next'] !== $child) {
+                  $list = $child === '*' ? 'ul' : 'ol';
                   $format = "{$format}</{$list}>";
 
-                  unset($secondary);
+                  unset($child);
                 }
               }
 
-              if($nextstart !== $primary) {
-                $list = $primary === '*' ? 'ul' : 'ol';
+              if($start['next'] !== $parent) {
+                $list = $parent === '*' ? 'ul' : 'ol';
                 $format = "{$format}</{$list}>";
 
-                unset($primary);
+                unset($parent);
               }
             }
           }
         }
-
-        $line = $part[2];
       } else {
         $line = ltrim($line);
 
@@ -120,10 +120,10 @@ return function($content, $replace = []) {
       }
 
       foreach([
-        '*' => "/(\A|\W)\*(?! )([^\*]+)(?<! )\*(?=\W|\Z)/U",
-        '_' => "/(\A|\W)\_(?! )([^\_]+)(?<! )\_(?=\W|\Z)/U",
-        '~' => "/(\A|\W)\~(?! )([^\~]+)(?<! )\~(?=\W|\Z)/U",
-        '`' => "/(\A|\W)\`(?! )([^\`]+)(?<! )\`(?=\W|\Z)/U",
+        '*' => "/(\A|\W)\*(?!\s)([^\*]+)(?<!\s)\*(?=\W|\Z)/U",
+        '_' => "/(\A|\W)\_(?!\s)([^\_]+)(?<!\s)\_(?=\W|\Z)/U",
+        '~' => "/(\A|\W)\~(?!\s)([^\~]+)(?<!\s)\~(?=\W|\Z)/U",
+        '`' => "/(\A|\W)\`(?!\s)([^\`]+)(?<!\s)\`(?=\W|\Z)/U",
         '![' => "/(\A|\W)\!\[(.*)\]\((.*)\)(?=\W|\Z)/U",
         '](' => "/(\A|\W)\[(.*)\]\((.*)\)(?=\W|\Z)/U"
       ] as $search => $regex) {
@@ -160,7 +160,7 @@ return function($content, $replace = []) {
     }
 
     if(isset($quote)) {
-      if($nextstart !== '>') {
+      if($start['next'] !== '>') {
         $results[] = "</{$quote}>";
 
         unset($quote);
