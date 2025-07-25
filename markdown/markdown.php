@@ -5,7 +5,9 @@
  * MIT https://helpers.arcane.dev
 **/
 
-return function($content = '', $replace = []) {
+return function($content, $replace = []) {
+  $content = is_null($content) ? '' : $content;
+    
   if(is_array($content)) {
     $content = implode("\n", $content);
   } else if(substr(rtrim($content), -2) === 'md') {
@@ -19,7 +21,7 @@ return function($content = '', $replace = []) {
   }
   
   $includes = strpos($content, "@\x20");
-  $content = explode("\n",  $content);
+  $content = explode("\n", $content);
 
   if($includes !== false) {
     $includes = preg_grep("/^\s*(?<!\s{4})@\s+(.+)$/", $content);
